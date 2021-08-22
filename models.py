@@ -8,10 +8,10 @@ def ambilData() :
   data = json.loads(response.read())
   return data
 
-  provinsi = data['data']['provinsi']
-  positif = data['data']['kasusPosi']
-  sembuh = data['data']['kasusSemb']
-  meninggal = data['data']['kasusMeni']
+  # provinsi = data['data']['provinsi']
+  # positif = data['data']['kasusPosi']
+  # sembuh = data['data']['kasusSemb']
+  # meninggal = data['data']['kasusMeni']
 
   # for covid in data['data'] :
   #   print('------------')
