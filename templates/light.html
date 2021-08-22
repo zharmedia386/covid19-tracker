@@ -31,18 +31,32 @@
 
     <link rel="canonical" href="https://zharmediaBlog.github.io/posts/markdown-syntax/" />
 
-    <link rel="stylesheet" type="text/css" href="css/normalize.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link disabled id="dark-theme" rel="stylesheet" href="css/dark.css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/normalize.min.css')}}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/main.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/dark.css') }}"> -->
 
-    <script src="js/feather-icons.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{{url_for('static', filename='js/feather-icons.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
 </head>
 
 <body>
+    <script src="{{url_for('static', filename='js/toggle.js')}}"></script>
     <script type="text/javascript">
-        setThemeByUserPref();
+        darkThemeCss = document.getElementById("dark-theme");
+        const savedTheme = localStorage.getItem(THEME_PREF_STORAGE_KEY) ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const darkThemeToggles = document.querySelectorAll('.dark-theme-toggle');
+        setTheme(savedTheme, darkThemeToggles);
+        darkThemeToggles.forEach(el => el.addEventListener('click', (event) => {
+            toggleIcon = event.currentTarget.querySelector("a svg.feather");
+            if (toggleIcon.classList[1] === THEME_TO_ICON_CLASS.dark) {
+                setTheme('light', [event.currentTarget]);
+            } else if (toggleIcon.classList[1] === THEME_TO_ICON_CLASS.light) {
+                setTheme('dark', [event.currentTarget]);
+            }
+        }));
     </script>
+
     <header class="header">
         <nav class="header-nav">
             <div class="avatar">
@@ -63,7 +77,7 @@
                 </div>
                 <span class="nav-icons-divider"></span>
                 <div class="nav-link dark-theme-toggle">
-                    <a>
+                    <a href="{{ url_for('dark') }}">
                         <span id="theme-toggle-icon" data-feather="moon"></span>
                     </a>
                 </div>
@@ -101,11 +115,11 @@
                             {% for covid in models['data'] %}
                             <tr>
                                 <td>{{covid['provinsi']}}</td>
-                                <td>Positif : {{covid['kasusPosi']}}</td>
-                                <td>Sembuh : {{covid['kasusSemb']}}</td>
-                                <td>Meninggal : {{covid['kasusMeni']}}</td>
+                                <td>{{covid['kasusPosi']}}</td>
+                                <td>{{covid['kasusSemb']}}</td>
+                                <td>{{covid['kasusMeni']}}</td>
                             </tr>
-                            {% endfor %} Bob
+                            {% endfor %}
                         </tbody>
                     </table>
                 </p>
