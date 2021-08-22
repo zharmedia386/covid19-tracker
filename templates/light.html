@@ -113,14 +113,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for covid in models['data'] %}
+                            {% for covid in models['data'] %} {% if covid['provinsi'] != 'Indonesia' %}
                             <tr>
                                 <td>{{covid['provinsi']}}</td>
                                 <td>{{covid['kasusPosi']}}</td>
                                 <td>{{covid['kasusSemb']}}</td>
                                 <td>{{covid['kasusMeni']}}</td>
                             </tr>
-                            {% endfor %}
+                            {% endif %} {% endfor %}
+
                         </tbody>
                     </table>
                 </p>
