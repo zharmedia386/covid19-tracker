@@ -11,9 +11,13 @@
 <body>
     <h1>Data Covid di Indonesia</h1>
     <ul>
-        <li>Positif {{}}</li>
-        <li>Sembuh</li>
-        <li>Meninggal</li>
+        {% for covid in models['data'] %}
+        <li>---------------</li>
+        <li>-{{covid['provinsi']}}</li>
+        <li>Positif : {{covid['kasusPosi']}}</li>
+        <li>Sembuh : {{covid['kasusSemb']}}</li>
+        <li>Meninggal : {{covid['kasusMeni']}}</li>
+        {% endfor %}
     </ul>
 </body>
 
