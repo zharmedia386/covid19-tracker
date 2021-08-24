@@ -33,30 +33,16 @@
 
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/normalize.min.css')}}" media="print" onload="this.media='all'">
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/main.css') }}">
-    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/dark.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/dark.css') }}" disabled id="dark-theme" rel="stylesheet">
 
     <script src="{{url_for('static', filename='js/feather-icons.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
 </head>
 
 <body>
-    <script src="{{url_for('static', filename='js/toggle.js')}}"></script>
     <script type="text/javascript">
-        darkThemeCss = document.getElementById("dark-theme");
-        const savedTheme = localStorage.getItem(THEME_PREF_STORAGE_KEY) ||
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        const darkThemeToggles = document.querySelectorAll('.dark-theme-toggle');
-        setTheme(savedTheme, darkThemeToggles);
-        darkThemeToggles.forEach(el => el.addEventListener('click', (event) => {
-            toggleIcon = event.currentTarget.querySelector("a svg.feather");
-            if (toggleIcon.classList[1] === THEME_TO_ICON_CLASS.dark) {
-                setTheme('light', [event.currentTarget]);
-            } else if (toggleIcon.classList[1] === THEME_TO_ICON_CLASS.light) {
-                setTheme('dark', [event.currentTarget]);
-            }
-        }));
+        setThemeByUserPref();
     </script>
-
     <header class="header">
         <nav class="header-nav">
             <div class="avatar">
@@ -68,8 +54,13 @@
             <div class="nav-title">
                 <a class="nav-brand" href="#">Zharmedia</a>
             </div>
-
             <div class="nav-links">
+                <div class="nav-link">
+                    <a href="{{ url_for('index') }}">Home</a>
+                </div>
+                <div class="nav-link">
+                    <a href="{{ url_for('post') }}">Posts</a>
+                </div>
                 <div class="nav-link">
                     <a href="https://github.com/zharmedia386/covid19-flask" target="_blank"><span data-feather='github'></span>  </a>
                 </div>
@@ -78,7 +69,7 @@
                 </div>
                 <span class="nav-icons-divider"></span>
                 <div class="nav-link dark-theme-toggle">
-                    <a href="{{ url_for('dark') }}">
+                    <a>
                         <span id="theme-toggle-icon" data-feather="moon"></span>
                     </a>
                 </div>
@@ -88,9 +79,9 @@
     <main id="content">
         <div class="post container">
             <div class="post-header-section">
-                <h1>Data Pasien Covid Indonesia</h1>
+                <h1>Data Pasien Covid Indonesia Harian</h1>
                 <p class="post-date">
-                    Last Updated : August 22, 2021
+                    Last Updated : {{date}}
                 </p>
                 <ul class="post-tags">
                     <li class="post-tag"><a href="#">covid</a></li>
@@ -101,27 +92,32 @@
             <div class="post-content">
                 <p>
                     <blockquote>
-                        <p>Menampilkan data pasien covid di Indonesia mulai dari pasien positif, sembuh, dan juga meninggal. Data ini diperoleh dari <a href="https://github.com/mathdroid/indonesia-covid-19-api/">indonesia-covid-19-api</a></p>
+                        <p>Menampilkan data pasien covid harian di Indonesia mulai dari pasien positif, sembuh, dan juga meninggal. Data ini diperoleh dari <a href="https://github.com/Reynadi531/api-covid19-indonesia-v2">covid-19-indonesia-v2-api</a></p>
                     </blockquote>
                     <table>
                         <thead>
                             <tr>
-                                <th>Provinsi</th>
+                                <th>Tanggal</th>
                                 <th>Kasus Positif</th>
                                 <th>Kasus Sembuh</th>
                                 <th>Kasus Meninggal</th>
+                                <th>Positif Kumulatif</th>
+                                <th>Sembuh Kumulatif</th>
+                                <th>Meninggal Kumulatif</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for covid in models['data'] %} {% if covid['provinsi'] != 'Indonesia' %}
+                            {% for i in range(0,length,1) %}
                             <tr>
-                                <td>{{covid['provinsi']}}</td>
-                                <td>{{covid['kasusPosi']}}</td>
-                                <td>{{covid['kasusSemb']}}</td>
-                                <td>{{covid['kasusMeni']}}</td>
+                                <td>{{models[i]['tanggal'][0:10]}}</td>
+                                <td>{{models[i]['positif']}}</td>
+                                <td>{{models[i]['sembuh']}}</td>
+                                <td>{{models[i]['meninggal']}}</td>
+                                <td>{{models[i]['positif_kumulatif']}}</td>
+                                <td>{{models[i]['sembuh_kumulatif']}}</td>
+                                <td>{{models[i]['meninggal']}}</td>
                             </tr>
-                            {% endif %} {% endfor %}
-
+                            {% endfor %}
                         </tbody>
                     </table>
                 </p>

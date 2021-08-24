@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+         :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    <title>Website Covid-19 - Zharmedia</title>
+    <meta name="description" content="Sample article showcasing basic Markdown syntax and formatting for HTML elements.">
+    <meta name="keywords" content='blog, gokarna, hugo, markdown, css, html'>
+
+    <meta property="og:url" content="https://zharmediaBlog.github.io/posts/markdown-syntax/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Markdown Syntax Guide">
+    <meta property="og:description" content="Sample article showcasing basic Markdown syntax and formatting for HTML elements.">
+    <meta property="og:image" content="/images/avatar.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Markdown Syntax Guide">
+    <meta name="twitter:description" content="Sample article showcasing basic Markdown syntax and formatting for HTML elements.">
+    <meta property="twitter:domain" content="https://zharmediaBlog.github.io/posts/markdown-syntax/">
+    <meta property="twitter:url" content="https://zharmediaBlog.github.io/posts/markdown-syntax/">
+    <meta name="twitter:image" content="/images/avatar.webp">
+
+
+    <link rel="canonical" href="https://zharmediaBlog.github.io/posts/markdown-syntax/" />
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/normalize.min.css')}}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/dark.css') }}" disabled id="dark-theme" rel="stylesheet">
+
+    <script src="{{url_for('static', filename='js/feather-icons.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        setThemeByUserPref();
+    </script>
+    <header class="header">
+        <nav class="header-nav">
+            <div class="avatar">
+                <a href="https://zharmediaBlog.github.io/">
+                    <!-- <img src="/images/avatar.webp" alt="avatar" /> -->
+                    <image src="{{url_for('static',filename = 'images/avatar.png')}}"></image>
+                </a>
+            </div>
+            <div class="nav-title">
+                <a class="nav-brand" href="#">Zharmedia</a>
+            </div>
+            <div class="nav-links">
+                <div class="nav-link">
+                    <a href="{{ url_for('index') }}">Home</a>
+                </div>
+                <div class="nav-link">
+                    <a href="{{ url_for('post') }}">Posts</a>
+                </div>
+                <div class="nav-link">
+                    <a href="https://github.com/zharmedia386/covid19-flask" target="_blank"><span data-feather='github'></span>  </a>
+                </div>
+                <div class="nav-link">
+                    <a href="https://github.com/mathdroid/indonesia-covid-19-api/" target="_blank"><span data-feather='rss'></span>  </a>
+                </div>
+                <span class="nav-icons-divider"></span>
+                <div class="nav-link dark-theme-toggle">
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main id="content">
+        <div class="post container">
+            <div class="post-header-section">
+                <h1>Data Pasien Covid India</h1>
+                <p class="post-date">
+                    Last Updated : {{date}}
+                </p>
+                <ul class="post-tags">
+                    <li class="post-tag"><a href="#">covid</a></li>
+                    <li class="post-tag"><a href="#">api</a></li>
+                    <li class="post-tag"><a href="#">web</a></li>
+                </ul>
+            </div>
+            <div class="post-content">
+                <p>
+                    <blockquote>
+                        <p>Menampilkan data pasien covid di India mulai dari pasien positif, sembuh, dan juga meninggal. Data ini diperoleh dari <a href="https://github.com/mathdroid/covid-19-api">covid-19-api</a></p>
+                    </blockquote>
+                    <h3>India</h3>
+                    <p>Kasus Positif : {{india['confirmed']['value']}}</p>
+                    <p>Kasus Sembuh : {{india['recovered']['value']}}</p>
+                    <p>Kasus Meninggal : {{india['deaths']['value']}}</p>
+                    <p>Last Updated : {{india['lastUpdate'][0:10]}}</p>
+                    <br>
+                    <h3>Open Graph Image</h3>
+                    <img src="https://covid19.mathdro.id/api/countries/india/og" alt="og-india">
+                    <br><br>
+                    <h3>Berdasarkan 36 Negara Bagian</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Negara Bagian</th>
+                                <th>Kasus Positif</th>
+                                <th>Kasus Sembuh</th>
+                                <th>Kasus Meninggal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(0,length,1) %}
+                            <tr>
+                                <td>{{models[i]['provinceState']}}</td>
+                                <td>{{models[i]['confirmed']}}</td>
+                                <td>None</td>
+                                <td>{{models[i]['deaths']}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </p>
+            </div>
+        </div>
+
+    </main>
+    <footer class="footer">
+        <span>&copy; 2021 Zharmedia</span>
+        <span> Made with &#10084;&#65039; using <a target="_blank" href="https://gohugo.io/">Hugo 0.86.0</a> </span>
+    </footer>
+</body>
+
+</html>

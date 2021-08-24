@@ -33,30 +33,16 @@
 
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/normalize.min.css')}}" media="print" onload="this.media='all'">
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/main.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/dark.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/dark.css') }}" disabled id="dark-theme" rel="stylesheet">
 
     <script src="{{url_for('static', filename='js/feather-icons.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
 </head>
 
 <body>
-    <script src="{{url_for('static', filename='js/toggle.js')}}"></script>
     <script type="text/javascript">
-        darkThemeCss = document.getElementById("dark-theme");
-        const savedTheme = localStorage.getItem(THEME_PREF_STORAGE_KEY) ||
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        const darkThemeToggles = document.querySelectorAll('.dark-theme-toggle');
-        setTheme(savedTheme, darkThemeToggles);
-        darkThemeToggles.forEach(el => el.addEventListener('click', (event) => {
-            toggleIcon = event.currentTarget.querySelector("a svg.feather");
-            if (toggleIcon.classList[1] === THEME_TO_ICON_CLASS.dark) {
-                setTheme('light', [event.currentTarget]);
-            } else if (toggleIcon.classList[1] === THEME_TO_ICON_CLASS.light) {
-                setTheme('dark', [event.currentTarget]);
-            }
-        }));
+        setThemeByUserPref();
     </script>
-
     <header class="header">
         <nav class="header-nav">
             <div class="avatar">
@@ -68,8 +54,13 @@
             <div class="nav-title">
                 <a class="nav-brand" href="#">Zharmedia</a>
             </div>
-
             <div class="nav-links">
+                <div class="nav-link">
+                    <a href="{{ url_for('index') }}">Home</a>
+                </div>
+                <div class="nav-link">
+                    <a href="{{ url_for('post') }}">Posts</a>
+                </div>
                 <div class="nav-link">
                     <a href="https://github.com/zharmedia386/covid19-flask" target="_blank"><span data-feather='github'></span>  </a>
                 </div>
@@ -78,7 +69,7 @@
                 </div>
                 <span class="nav-icons-divider"></span>
                 <div class="nav-link dark-theme-toggle">
-                    <a href="{{ url_for('index') }}">
+                    <a>
                         <span id="theme-toggle-icon" data-feather="moon"></span>
                     </a>
                 </div>
@@ -90,7 +81,7 @@
             <div class="post-header-section">
                 <h1>Data Pasien Covid Indonesia</h1>
                 <p class="post-date">
-                    Last Updated : August 22, 2021
+                    Last Updated : {{date}}
                 </p>
                 <ul class="post-tags">
                     <li class="post-tag"><a href="#">covid</a></li>
@@ -101,8 +92,21 @@
             <div class="post-content">
                 <p>
                     <blockquote>
-                        <p>Menampilkan data pasien covid di Indonesia mulai dari pasien positif, sembuh, dan juga meninggal. Data ini diperoleh dari <a href="https://github.com/mathdroid/indonesia-covid-19-api/">indonesia-covid-19-api</a></p>
+                        <p>Menampilkan data pasien covid di Indonesia mulai dari pasien positif, sembuh, dan juga meninggal. Data ini diperoleh dari <a href="https://github.com/mathdroid/indonesia-covid-19-api/">indonesia-covid-19-api</a>,<a href="https://github.com/mathdroid/covid-19-api">covid-19-api</a>,
+                            dan
+                            <a href="https://api.kawalcorona.com/">api-kawalcorona</a>
+                        </p>
                     </blockquote>
+                    <h3>Indonesia</h3>
+                    <p>Kasus Positif : {{indo[0]['positif']}}</p>
+                    <p>Kasus Sembuh : {{indo[0]['sembuh']}}</p>
+                    <p>Kasus Meninggal : {{indo[0]['meninggal']}}</p>
+                    <p>Kasus Dirawat : {{indo[0]['dirawat']}}</p>
+                    <br>
+                    <h3>Open Graph Image</h3>
+                    <img src="https://covid19.mathdro.id/api/countries/indonesia/og" alt="og-indo">
+                    <br><br>
+                    <h3>Berdasarkan 34 Provinsi</h3>
                     <table>
                         <thead>
                             <tr>

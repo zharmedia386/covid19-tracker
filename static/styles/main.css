@@ -309,6 +309,11 @@ table thead {
     background-color: var(--light-secondary-color);
 }
 
+table tr,
+table th {
+    text-align: center;
+}
+
 table td,
 table th {
     padding: 1.4rem;
@@ -316,6 +321,7 @@ table th {
 
 table td {
     border-bottom: 1px solid var(--light-secondary-color);
+    text-align: center;
 }
 
 
