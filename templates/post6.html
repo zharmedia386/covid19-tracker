@@ -65,7 +65,7 @@
                     <a href="https://github.com/zharmedia386/covid19-flask" target="_blank"><span data-feather='github'></span>  </a>
                 </div>
                 <div class="nav-link">
-                    <a href="https://kawalcorona.com/" target="_blank"><span data-feather='rss'></span>  </a>
+                    <a href="https://github.com/mathdroid/covid-19-api" target="_blank"><span data-feather='rss'></span>  </a>
                 </div>
                 <span class="nav-icons-divider"></span>
                 <div class="nav-link dark-theme-toggle">
@@ -79,7 +79,7 @@
     <main id="content">
         <div class="post container">
             <div class="post-header-section">
-                <h1>Data Pasien Covid Indonesia</h1>
+                <h1>Data Pasien Covid United States</h1>
                 <p class="post-date">
                     Last Updated : {{date}}
                 </p>
@@ -92,40 +92,36 @@
             <div class="post-content">
                 <p>
                     <blockquote>
-                        <p>Menampilkan data pasien covid di Indonesia mulai dari pasien positif, sembuh, dan juga meninggal. Data ini diperoleh dari <a href="https://github.com/mathdroid/indonesia-covid-19-api/">indonesia-covid-19-api</a>,<a href="https://github.com/mathdroid/covid-19-api">covid-19-api</a>,
-                            dan
-                            <a href="https://api.kawalcorona.com/">api-kawalcorona</a>
-                        </p>
+                        <p>Menampilkan data pasien covid di United States mulai dari pasien positif, sembuh, dan juga meninggal. Data ini diperoleh dari <a href="https://github.com/mathdroid/covid-19-api">covid-19-api</a></p>
                     </blockquote>
-                    <h3>Indonesia</h3>
-                    <p>Kasus Positif : {{indo[0]['positif']}}</p>
-                    <p>Kasus Sembuh : {{indo[0]['sembuh']}}</p>
-                    <p>Kasus Meninggal : {{indo[0]['meninggal']}}</p>
-                    <p>Kasus Dirawat : {{indo[0]['dirawat']}}</p>
+                    <h3>United States</h3>
+                    <p>Kasus Positif : {{us['confirmed']['value']}}</p>
+                    <p>Kasus Sembuh : {{us['recovered']['value']}}</p>
+                    <p>Kasus Meninggal : {{us['deaths']['value']}}</p>
+                    <p>Last Updated : {{us['lastUpdate'][0:10]}}</p>
                     <br>
                     <h3>Open Graph Image</h3>
-                    <img src="https://covid19.mathdro.id/api/countries/indonesia/og" alt="og-indo">
+                    <img src="https://covid19.mathdro.id/api/countries/us/og" alt="og-turkey">
                     <br><br>
-                    <h3>Berdasarkan 34 Provinsi</h3>
+                    <h3>Berdasarkan Negara Bagian</h3>
                     <table>
                         <thead>
                             <tr>
-                                <th>Provinsi</th>
+                                <th>Negara Bagian</th>
                                 <th>Kasus Positif</th>
                                 <th>Kasus Sembuh</th>
                                 <th>Kasus Meninggal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for covid in models['data'] %} {% if covid['provinsi'] != 'Indonesia' %}
+                            {% for i in range(0,length,1) %}
                             <tr>
-                                <td>{{covid['provinsi']}}</td>
-                                <td>{{covid['kasusPosi']}}</td>
-                                <td>{{covid['kasusSemb']}}</td>
-                                <td>{{covid['kasusMeni']}}</td>
+                                <td>{{models[i]['provinceState']}}</td>
+                                <td>{{models[i]['confirmed']}}</td>
+                                <td>None</td>
+                                <td>{{models[i]['deaths']}}</td>
                             </tr>
-                            {% endif %} {% endfor %}
-
+                            {% endfor %}
                         </tbody>
                     </table>
                 </p>

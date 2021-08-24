@@ -1,6 +1,6 @@
 from flask import Flask
 from flask.templating import render_template
-from models import provinsi,ambilTanggal,dunia,indonesia,harian_indo,india,india_global,turki,turki_global
+from models import provinsi,ambilTanggal,dunia,indonesia,harian_indo,india,india_global,turki,turki_global,us,us_global
 
 application = Flask(__name__)
 @application.route('/')
@@ -47,6 +47,14 @@ def post5():
    date = ambilTanggal()
    length = len(models)
    return render_template('post5.html',models=models,date=date,length=length,turki=turki_)
+
+@application.route('/post6')
+def post6():   
+   models = us()
+   us_ = us_global()
+   date = ambilTanggal()
+   length = len(models)
+   return render_template('post6.html',models=models,date=date,length=length,us=us_)
 
 if __name__ == '__main__' :
   application.run(debug=True)

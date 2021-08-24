@@ -52,6 +52,16 @@ def turki_global() :
   response = requests.get(url).json()
   return response
 
+def us() :
+  url = "https://covid19.mathdro.id/api/countries/us/confirmed"
+  response = requests.get(url).json()
+  return response
+
+def us_global() :
+  url = "https://covid19.mathdro.id/api/countries/us"
+  response = requests.get(url).json()
+  return response
+
   # provinsi = data['data']['provinsi']
   # positif = data['data']['kasusPosi']
   # sembuh = data['data']['kasusSemb']
