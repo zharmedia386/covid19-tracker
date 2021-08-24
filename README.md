@@ -1,5 +1,5 @@
 # covid19-flask
-🦠 Website sederhana untuk menampilkan data pasien covid19 di Indonesia
+🦠 Website sederhana untuk menampilkan data pasien covid19 di Indonesia dan juga Mancanegara
 
 ## Prerequisites
 Git
