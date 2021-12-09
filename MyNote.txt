@@ -1,0 +1,13 @@
+Self Note 
+1. Generate Template Hugo
+2. Ambil semua file dari folder Fonts, Images, js, styles
+3. Jadikan satu folder dengan nama static
+
+
+Flask MVC (Model View Controller)
+1. Model di files model.py
+2. View di folder templates
+3. Controller di file app.py 
+
+
+Jinja2 = Template Engine Flask

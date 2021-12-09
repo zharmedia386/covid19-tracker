@@ -3,6 +3,8 @@ from urllib import request
 from datetime import datetime
 import requests
 
+# Fetch data dari API dan akan dikirimkan ke view
+
 def provinsi() :
   url = "https://indonesia-covid-19.mathdro.id/api/provinsi"
 
